@@ -203,3 +203,29 @@ export const updateTicket = async (req, res, next) => {
     next(createError(error.status || 500, error.message));
   }
 };
+
+/**
+ * DELETE /tickets/:id
+ */
+export const deleteTicket = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const existingTicket = await prisma.ticket.findUnique({
+      where: { id },
+    });
+
+    if (!existingTicket) {
+      return next(createError(404, `Ticket with ID ${id} not found`));
+    }
+
+    await prisma.ticket.delete({
+      where: { id },
+    });
+
+    res.status(200).json({ message: "Ticket deleted successfully", id });
+  } catch (error) {
+    next(createError(error.status || 500, error.message));
+  }
+};
+

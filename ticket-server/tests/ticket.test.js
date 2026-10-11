@@ -116,4 +116,27 @@ describe("Ticket API Integration Tests", { timeout: 15000 }, () => {
       expect(res.body.message).toMatch(/not found/i);
     });
   });
+
+  describe("DELETE /api/v1/tickets/:id", () => {
+    it("should delete an existing ticket by ID", async () => {
+      const res = await request(app).delete(`/api/v1/tickets/${createdTicketId}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body).toHaveProperty("message");
+      expect(res.body.id).toBe(createdTicketId);
+
+      // Verify it no longer exists
+      const verifyRes = await request(app).patch(`/api/v1/tickets/${createdTicketId}`).send({ status: "closed" });
+      expect(verifyRes.status).toBe(404);
+
+      createdTicketId = null; // Prevent afterAll cleanup attempt
+    });
+
+    it("should return 404 Not Found when trying to delete non-existent ticket", async () => {
+      const res = await request(app).delete("/api/v1/tickets/ZZZZZZ");
+
+      expect(res.status).toBe(404);
+      expect(res.body.message).toMatch(/not found/i);
+    });
+  });
 });
