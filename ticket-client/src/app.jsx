@@ -7,13 +7,13 @@ import { Toaster } from "sonner";
 // pages
 const Tickets = lazy(() => import("./pages/tickets/tickets"));
 
-export default function App({ queryClient }) {
+export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
         <Suspense fallback={<div>Loading...</div>}>
-          <Tickets queryClient={queryClient} />
+          <Tickets />
         </Suspense>
       ),
     },
