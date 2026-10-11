@@ -206,7 +206,7 @@ export default function Tickets() {
                   {tickets.map((ticket) => (
                     <tr
                       key={ticket.id}
-                      className="hover:bg-gray-50/60 transition-colors group"
+                      className="hover:bg-gray-50/60 transition-colors"
                     >
                       {/* ID */}
                       <td className="py-3.5 px-4 font-mono text-xs font-semibold text-black">

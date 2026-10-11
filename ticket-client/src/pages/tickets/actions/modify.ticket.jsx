@@ -51,7 +51,7 @@ export default function ModifyTicket({ ticket }) {
 
   return (
     <>
-      <div className="relative group inline-block">
+      <div className="relative group/tooltip inline-block">
         <button
           type="button"
           onClick={handleOpen}
@@ -60,8 +60,8 @@ export default function ModifyTicket({ ticket }) {
         >
           <PencilSquareIcon className="w-4 h-4" />
         </button>
-        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black text-white text-[10px] font-medium px-2 py-0.5 rounded shadow-xs whitespace-nowrap z-30">
-          Edit
+        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/tooltip:opacity-100 transition-opacity bg-black text-white text-[10px] font-medium px-2 py-0.5 rounded shadow-xs whitespace-nowrap z-30">
+          Edit ticket
         </span>
       </div>
 
