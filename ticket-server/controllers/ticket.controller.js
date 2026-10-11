@@ -99,7 +99,7 @@ export const getTicketStats = async (req, res, next) => {
  */
 export const getTickets = async (req, res, next) => {
   try {
-    const { status } = req.query;
+    const { status, priority, search } = req.query;
     const page = Math.max(1, parseInt(req.query.page, 10) || 1);
     const limit = Math.max(
       1,
@@ -119,6 +119,26 @@ export const getTickets = async (req, res, next) => {
         );
       }
       where.status = status;
+    }
+
+    if (priority) {
+      if (!ALLOWED_PRIORITIES.includes(priority)) {
+        return next(
+          createError(
+            400,
+            `Invalid priority filter. Allowed values: ${ALLOWED_PRIORITIES.join(", ")}`,
+          ),
+        );
+      }
+      where.priority = priority;
+    }
+
+    if (search && typeof search === "string" && search.trim()) {
+      const query = search.trim();
+      where.OR = [
+        { title: { contains: query, mode: "insensitive" } },
+        { id: { contains: query, mode: "insensitive" } },
+      ];
     }
 
     const [total, tickets] = await Promise.all([
