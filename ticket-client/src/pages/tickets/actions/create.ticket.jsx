@@ -6,10 +6,7 @@ import { toast } from "sonner";
 
 import axios from "../../../configs/api";
 
-export default function CreateTicket({
-  buttonLabel = "Create Ticket",
-  isPrimary = true,
-}) {
+export default function CreateTicket({ buttonLabel = "Create Ticket" }) {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
@@ -73,11 +70,7 @@ export default function CreateTicket({
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className={`inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-colors cursor-pointer ${
-          isPrimary
-            ? "bg-[#75ba75] hover:bg-[#66a866] text-white shadow-xs"
-            : "border border-black hover:bg-black hover:text-white text-black"
-        }`}
+        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md bg-[#75ba75] hover:bg-[#66a866] text-white shadow-xs transition-colors cursor-pointer"
       >
         <PlusIcon className="w-4 h-4" />
         <span>{buttonLabel}</span>
